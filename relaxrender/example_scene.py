@@ -107,12 +107,6 @@ def make_cornell_box():
         point[2] = -tmp - 1.5
         return point
 
-    # 测试点集
-    ax = Axes3D(plt.figure())
-    ax.set_xlim([-1, 1])
-    ax.set_ylim([-1, 1])
-    ax.set_zlim([-2, 0])
-
     # test = mapping([1, -1, 1])
     points = teapot.t_pos
     # points = [mapping(p) for p in points]
@@ -142,11 +136,6 @@ def make_cornell_box():
             for tri in tri_set:
                 tri = [mapping(p) for p in tri]
                 p1, p2, p3 = tri[0], tri[1], tri[2]
-
-                # test
-                for p in tri:
-                    ax.scatter(p[0], p[1], p[2], c=[1, 0, 0])
-
                 if (p1 is p2) or (p2 is p3) or (p1 is p3) or \
                         (p1 == p2) or (p2 == p3) or (p1 == p3):
                     continue
@@ -159,8 +148,20 @@ def make_cornell_box():
                 tex_pos.append(None)
         index += 1
     # todo
-
+    """
+    # 测试点集
+    fig = plt.figure()
+    [[ax1, ax2], [ax3, ax4]] = fig.subplots(2, 2)
+    # ax1.setTitle("xy")
+    # ax2.setTitle("xz")
+    # ax3.setTitle("yz")
+    # ax.set_zlim([-2, 0])
+    for point in tris.points:
+        ax1.plot(point.data[0], point.data[1], 'o')
+        ax2.plot(point.data[0], point.data[2], 'o')
+        ax3.plot(point.data[1], point.data[2], 'o')
     plt.show()
+    """
     mesh = Mesh(tris, texs, tex_pos)
 
     c_pos = np.array([0.0, 0.0, 1.0])
